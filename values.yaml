@@ -232,7 +232,7 @@ server:
       # that is authorized to access GCP KMS.
       seal "gcpckms" {
          project     = "ml-gdavidson"
-         region      = "global"
+         region      = "us-east"
          key_ring    = "vault-keyring"
          crypto_key  = "vault-key"
       }
