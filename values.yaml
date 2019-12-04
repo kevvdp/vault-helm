@@ -78,7 +78,7 @@ server:
   extraVolumes:
     - type: secret
       name: "kms-creds"
-      path: `/vault/userconfig`
+      path: "/vault/userconfig"
 
   # Affinity Settings
   # Commenting out or setting as empty the affinity variable, will allow
@@ -232,7 +232,7 @@ server:
       # that is authorized to access GCP KMS.
       seal "gcpckms" {
          project     = "ml-gdavidson"
-         region      = "us-east"
+         region      = "us-east1"
          key_ring    = "vault-keyring"
          crypto_key  = "vault-key"
       }
