@@ -57,11 +57,11 @@ server:
 
   # extraEnvironmentVars is a list of extra enviroment variables to set with the stateful set. These could be
   # used to include variables required for auto-unseal.
-  extraEnvironmentVars: {}
-    # GOOGLE_REGION: global
-    # GOOGLE_PROJECT: myproject
-    # GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/myproject/myproject-creds.json
-
+  extraEnvironmentVars: 
+    GOOGLE_REGION: global
+    GOOGLE_PROJECT: ml-gdavidson 
+    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/mlg_service.json
+  
   # extraSecretEnvironmentVars is a list of extra enviroment variables to set with the stateful set.
   # These variables take value from existing Secret objects.
   extraSecretEnvironmentVars: []
@@ -72,9 +72,9 @@ server:
   # extraVolumes is a list of extra volumes to mount. These will be exposed
   # to Vault in the path `/vault/userconfig/<name>/`. The value below is
   # an array of objects, examples are shown below.
-  extraVolumes: []
-    # - type: secret (or "configMap")
-    #   name: my-secret
+  extraVolumes: 
+    - type: "secret" 
+      name: "kms-creds"
     #   path: null # default is `/vault/userconfig`
 
   # Affinity Settings
@@ -205,7 +205,7 @@ server:
   # Helm project by default.  It is possible to manually configure Vault to use a
   # different HA backend.
   ha:
-    enabled: false
+    enabled: true
     replicas: 3
 
     # config is a raw string of default configuration when using a Stateful
@@ -227,12 +227,12 @@ server:
       # Example configuration for using auto-unseal, using Google Cloud KMS. The
       # GKMS keys must already exist, and the cluster must have a service account
       # that is authorized to access GCP KMS.
-      #seal "gcpckms" {
-      #   project     = "vault-helm-dev-246514"
-      #   region      = "global"
-      #   key_ring    = "vault-helm-unseal-kr"
-      #   crypto_key  = "vault-helm-unseal-key"
-      #}
+      seal "gcpckms" {
+         project     = "ml-gdavidson"
+         region      = "global"
+         key_ring    = "vault-keyring"
+         crypto_key  = "vault-key"
+      }
 
     # A disruption budget limits the number of pods of a replicated application
     # that are down simultaneously from voluntary disruptions
