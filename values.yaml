@@ -61,8 +61,8 @@ server:
   extraEnvironmentVars:
     GOOGLE_REGION: us-east1
     GOOGLE_PROJECT: ml-gdavidson
-    GOOGLE_CREDENTIALS: /vault/userconfig/kms-creds/mlg_service.json
-    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/mlg_service.json
+    GOOGLE_CREDENTIALS: /vault/userconfig/kms-creds/sa.json
+    GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/sa.json
 
   # extraSecretEnvironmentVars is a list of extra enviroment variables to set with the stateful set.
   # These variables take value from existing Secret objects.
@@ -257,7 +257,7 @@ ui:
   # serviceType can be used to control the type of service created. For
   # example, setting this to "LoadBalancer" will create an external load
   # balancer (for supported K8S installations) to access the UI.
-  enabled: false
+  enabled:
   serviceType: "ClusterIP"
   serviceNodePort: null
   externalPort: 8200
