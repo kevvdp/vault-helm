@@ -30,13 +30,15 @@ server:
   #     memory: 256Mi
   #     cpu: 250m
 
-  # Ingress allows ingress services to be created to allow external access 
+  # Ingress allows ingress services to be created to allow external access
   # from Kubernetes to access Vault pods.
   ingress:
     enabled: false
-    labels: {}
+    labels:
+      {}
       # traffic: external
-    annotations: {}
+    annotations:
+      {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
@@ -48,7 +50,6 @@ server:
     #    hosts:
     #      - chart-example.local
 
-
   # authDelegator enables a cluster role binding to be attached to the service
   # account.  This cluster role binding can be used to setup Kubernetes auth
   # method.  https://www.vaultproject.io/docs/auth/kubernetes.html
@@ -57,14 +58,16 @@ server:
 
   # extraEnvironmentVars is a list of extra enviroment variables to set with the stateful set. These could be
   # used to include variables required for auto-unseal.
-  extraEnvironmentVars: 
-    GOOGLE_REGION: global
-    GOOGLE_PROJECT: ml-gdavidson 
+  extraEnvironmentVars:
+    GOOGLE_REGION: us-east1
+    GOOGLE_PROJECT: ml-gdavidson
+    GOOGLE_CREDENTIALS: /vault/userconfig/kms-creds/mlg_service.json
     GOOGLE_APPLICATION_CREDENTIALS: /vault/userconfig/kms-creds/mlg_service.json
-  
+
   # extraSecretEnvironmentVars is a list of extra enviroment variables to set with the stateful set.
   # These variables take value from existing Secret objects.
-  extraSecretEnvironmentVars: []
+  extraSecretEnvironmentVars:
+    []
     # - envName: AWS_SECRET_ACCESS_KEY
     #   secretName: vault
     #   secretKey: AWS_SECRET_ACCESS_KEY
@@ -72,8 +75,8 @@ server:
   # extraVolumes is a list of extra volumes to mount. These will be exposed
   # to Vault in the path `/vault/userconfig/<name>/`. The value below is
   # an array of objects, examples are shown below.
-  extraVolumes: 
-    - type: "secret" 
+  extraVolumes:
+    - type: "secret"
       name: "kms-creds"
     #   path: null # default is `/vault/userconfig`
 
@@ -129,7 +132,7 @@ server:
     targetPort: 8200
     # Extra annotations for the service definition
     annotations: {}
-    
+
   # This configures the Vault Statefulset to create a PVC for data
   # storage when using the file backend.
   # See https://www.vaultproject.io/docs/audit/index.html to know more
@@ -239,14 +242,14 @@ server:
     disruptionBudget:
       enabled: true
 
-    # maxUnavailable will default to (n/2)-1 where n is the number of
-    # replicas. If you'd like a custom value, you can specify an override here.
+      # maxUnavailable will default to (n/2)-1 where n is the number of
+      # replicas. If you'd like a custom value, you can specify an override here.
       maxUnavailable: null
 
   # Definition of the serviceaccount used to run Vault.
   serviceaccount:
     annotations: {}
-  
+
 # Vault UI
 ui:
   # True if you want to create a Service entry for the Vault UI.
